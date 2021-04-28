@@ -27,7 +27,7 @@ func (a *Author) Initials() string {
 		return strings.Join(res, "")
 	}
 
-	return a.Name[:1]
+	return strings.ToUpper(a.Name[:1])
 }
 
 func (r APIResp) ToMarkdown(sections []string) string {
