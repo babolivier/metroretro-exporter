@@ -1,0 +1,13 @@
+# Metroretro API config
+metroretro:
+  # Content of the metret.sess cookie. Needs to be renewed every 7 days.
+  session: some session
+  # Content of the metret.sess.sig cookie. Needs to be renewed every 7 days.
+  session_sig: some signature
+
+# Sections to print in the formatted output.
+# Any section without any note will be ignored.
+sections:
+  - Good
+  - Bad
+  - Actions
