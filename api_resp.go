@@ -14,6 +14,19 @@ type Note struct {
 	Comments []Note `json:"comments"`
 }
 
+func (n *Note) Initials() string {
+	splits := strings.Split(n.Content, ":")
+	if len(splits) > 1 {
+		fmt.Println(splits)
+		if splits[0] == strings.ToUpper(splits[0]) {
+			n.Content = strings.Trim(strings.Join(splits[1:], ":"), " ")
+			return splits[0]
+		}
+	}
+
+	return n.Author.Initials()
+}
+
 type Author struct {
 	Name  string `json:"name"`
 	Email string `json:"email"`
@@ -44,7 +57,7 @@ func (r APIResp) ToMarkdown(sections []string) string {
 		for _, note := range notes {
 			md += fmt.Sprintf("    * %s: %s\n", note.Author.Initials(), note.Content)
 			for _, comment := range note.Comments {
-				md += fmt.Sprintf("        * %s: %s\n", comment.Author.Initials(), comment.Content)
+				md += fmt.Sprintf("        * %s: %s\n", comment.Initials(), comment.Content)
 			}
 		}
 	}
