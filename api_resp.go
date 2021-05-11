@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"regexp"
 	"strings"
 )
 
@@ -17,7 +16,6 @@ type Note struct {
 func (n *Note) Initials() string {
 	splits := strings.Split(n.Content, ":")
 	if len(splits) > 1 {
-		fmt.Println(splits)
 		if splits[0] == strings.ToUpper(splits[0]) {
 			n.Content = strings.Trim(strings.Join(splits[1:], ":"), " ")
 			return splits[0]
@@ -33,14 +31,13 @@ type Author struct {
 }
 
 func (a *Author) Initials() string {
-	r := regexp.MustCompile("[A-Z]")
-	res := r.FindAllString(a.Name, 500)
-
-	if len(res) > 0 {
-		return strings.Join(res, "")
+	splits := strings.Split(a.Name, " ")
+	initials := ""
+	for _, split := range splits[:2] {
+		initials += string(split[0])
 	}
 
-	return strings.ToUpper(a.Name[:1])
+	return strings.ToUpper(initials)
 }
 
 func (r APIResp) ToMarkdown(sections []string) string {
