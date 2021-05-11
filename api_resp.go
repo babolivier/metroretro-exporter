@@ -52,9 +52,9 @@ func (r APIResp) ToMarkdown(sections []string) string {
 		md += fmt.Sprintf("\n%s\n", section)
 
 		for _, note := range notes {
-			md += fmt.Sprintf("    * %s: %s\n", note.Author.Initials(), note.Content)
+			md += fmt.Sprintf("  * %s: %s\n", note.Author.Initials(), note.Content)
 			for _, comment := range note.Comments {
-				md += fmt.Sprintf("        * %s: %s\n", comment.Initials(), comment.Content)
+				md += fmt.Sprintf("    * %s: %s\n", comment.Initials(), comment.Content)
 			}
 		}
 	}
