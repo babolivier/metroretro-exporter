@@ -21,3 +21,13 @@ configuration.
 
 The configuration file will be looked up at `./config.yaml`.
 Use `-c` to provide a different location.
+
+### Credentials
+
+The configuration file requires a couple of MetroRetro exporters.
+
+To find them, open any MetroRetro board on your browser, then open
+the Storage section of your browser's developer tools (in the Storage
+tab on Firefox, in the Application tab on Chrome/Chromium), and copy
+the contents of the cookies `metret.sess` and `metret.sess.sig` to
+the indicated keys in your configuration file.
