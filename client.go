@@ -2,15 +2,21 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/http/cookiejar"
 	"net/url"
+	"strings"
 )
 
 const (
 	urlBase   = "https://metroretro.io"
 	boardPath = "/api/v1/boards/%s/export?format=json&dl=1"
+)
+
+var (
+	ErrAuthFailed = errors.New("Failed to authenticate against MetroRetro with the provided credentials")
 )
 
 type metroretroClient struct {
@@ -53,6 +59,11 @@ func (mc *metroretroClient) getBoard(id string) (*APIResp, error) {
 	resp, err := mc.c.Get(u)
 	if err != nil {
 		return nil, err
+	}
+
+	contentType := resp.Header.Get("Content-Type")
+	if !strings.HasPrefix(contentType, "text/json") {
+		return nil, ErrAuthFailed
 	}
 
 	defer resp.Body.Close()
