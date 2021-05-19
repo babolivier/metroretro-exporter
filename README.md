@@ -24,7 +24,7 @@ Use `-c` to provide a different location.
 
 ### Credentials
 
-The configuration file requires a couple of MetroRetro exporters.
+The configuration file requires a couple of MetroRetro credentials.
 
 To find them, open any MetroRetro board on your browser, then open
 the Storage section of your browser's developer tools (in the Storage

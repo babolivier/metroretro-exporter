@@ -1,6 +1,6 @@
 # Metroretro API config
 metroretro:
-  # Content of the metret.sess cookie.
+  # Content of the metret.sess cookie. Needs to be renewed every 7 days.
   session: some session
   # Content of the metret.sess.sig cookie. Needs to be renewed every 7 days.
   session_sig: some signature
