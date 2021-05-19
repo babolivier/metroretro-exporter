@@ -11,3 +11,11 @@ sections:
   - Good
   - Bad
   - Actions
+
+# Optional: upload the markdown content to a secret GitHub Gist instead of printing it
+# in the terminal.
+github:
+  # GitHub username.
+  username: jdoe
+  # Access token with the "gist" scope.
+  access_token: secret

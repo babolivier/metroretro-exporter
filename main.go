@@ -32,5 +32,18 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Println(resp.ToMarkdown(cfg.Sections))
+	markdownContent := resp.ToMarkdown(cfg.Sections)
+
+	if cfg.Github == nil {
+		fmt.Println(markdownContent)
+	} else {
+		gc := newGithubClient(cfg.Github)
+
+		url, err := gc.uploadGist(markdownContent)
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Printf("Gist created: %s\n", url)
+	}
 }
