@@ -8,16 +8,21 @@ import (
 type APIResp map[string][]Note
 
 type Note struct {
-	Author   Author `json:"author"`
-	Content  string `json:"content"`
-	Comments []Note `json:"comments"`
+	Author     Author `json:"author"`
+	RawContent string `json:"content"`
+	Comments   []Note `json:"comments"`
+}
+
+func (n *Note) Content() string {
+	content := strings.ReplaceAll(n.RawContent, "\n\n", " ")
+	return strings.ReplaceAll(content, "\n", " ")
 }
 
 func (n *Note) Initials() string {
-	splits := strings.Split(n.Content, ":")
+	splits := strings.Split(n.Content(), ":")
 	if len(splits) > 1 {
 		if splits[0] == strings.ToUpper(splits[0]) {
-			n.Content = strings.Trim(strings.Join(splits[1:], ":"), " ")
+			n.RawContent = strings.Trim(strings.Join(splits[1:], ":"), " ")
 			return splits[0]
 		}
 	}
@@ -52,9 +57,9 @@ func (r APIResp) ToMarkdown(sections []string) string {
 		md += fmt.Sprintf("\n%s\n", section)
 
 		for _, note := range notes {
-			md += fmt.Sprintf("  * %s: %s\n", note.Author.Initials(), note.Content)
+			md += fmt.Sprintf("  * %s: %s\n", note.Author.Initials(), note.Content())
 			for _, comment := range note.Comments {
-				md += fmt.Sprintf("    * %s: %s\n", comment.Initials(), comment.Content)
+				md += fmt.Sprintf("    * %s: %s\n", comment.Initials(), comment.Content())
 			}
 		}
 	}
